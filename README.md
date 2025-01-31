@@ -29,8 +29,8 @@ Ensure you have the following installed:
 
 ### Step 1: Clone the Repository
 ```sh
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone [https://github.com/ArnoldLuich/Todo-App.git](https://github.com/ArnoldLuich/Todo-App.git)
+cd Todo-App
 ```
 
 ### Step 2: Set Up Environment Variables
