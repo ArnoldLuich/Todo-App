@@ -7,6 +7,7 @@ This project consists of a **Spring Boot** backend and a **React + TypeScript** 
 ### Prerequisites
 Ensure you have the following installed:
 - [Docker](https://docs.docker.com/desktop/setup/install/windows-install/)
+- [Java 21](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
 
 ### Step 1: Clone the Repository
 ```sh
