@@ -15,24 +15,18 @@ git clone https://github.com/ArnoldLuich/Todo-App.git
 cd Todo-App
 ```
 
-### Step 2: Build the Backend Jar File
-Navigate to the backend directory and build the jar file using Gradle:
-```sh
-cd todo-backend 
-./gradlew bootJar
-```
-
-### Step 3: Start the Application with Docker
+### Step 2: Start the Application with Docker
 Run the following command in Todo-App directory
 ```sh
 docker-compose up --build
 ```
+It might take some time to start!
 This will:
 - Start the PostgreSQL database container
 - Start the Spring Boot backend
 - Start the React frontend
 
-### Step 4: Verify Everything is Running
+### Step 3: Verify Everything is Running
 Once the containers are up, check:
 - Backend API: [http://localhost:8080/todos/filter](http://localhost:8080/todos/filter)
 - Frontend App: [http://localhost:3000](http://localhost:3000)
