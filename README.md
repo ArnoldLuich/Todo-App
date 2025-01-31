@@ -19,7 +19,8 @@ Run the following command in Todo-App directory
 ```sh
 docker-compose up --build
 ```
-It might take some time to start!
+- It might take some time to start!
+
 This will:
 - Start the PostgreSQL database container
 - Start the Spring Boot backend
