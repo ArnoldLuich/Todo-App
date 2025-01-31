@@ -37,6 +37,24 @@ Once the containers are up, check:
 - Backend API: [http://localhost:8080/todos/filter](http://localhost:8080/todos/filter)
 - Frontend App: [http://localhost:3000](http://localhost:3000)
 
+---
+## Tech Stack & Reasoning
+### Backend: Spring Boot
+- **Robust & Scalable**: Spring Boot provides a strong foundation for building REST APIs efficiently.
+- **Built-in JPA Support**: Works seamlessly with PostgreSQL, reducing boilerplate code for database interactions.
+- **Microservices Ready**: Ideal for future scalability if needed.
+
+### Frontend: React + TypeScript
+- **Component-Based Architecture**: Ensures modularity and reusability of UI elements.
+- **Type Safety**: TypeScript helps prevent runtime errors by enforcing type checking at compile-time.
+- **Performance**: React provides efficient UI updates using its virtual DOM.
+
+### Database: PostgreSQL
+- **Reliability & Performance**: PostgreSQL is a powerful relational database known for handling large-scale applications.
+- **Open-Source & Extensible**: Offers flexibility and support for complex queries.
+
+### Docker
+- **Containerization**: Ensures consistent environments across developments and testing.
 
 
 
