@@ -29,7 +29,7 @@ Ensure you have the following installed:
 
 ### Step 1: Clone the Repository
 ```sh
-git clone [https://github.com/ArnoldLuich/Todo-App.git](https://github.com/ArnoldLuich/Todo-App.git)
+git clone https://github.com/ArnoldLuich/Todo-App.git
 cd Todo-App
 ```
 
