@@ -25,10 +25,7 @@ This project consists of a **Spring Boot** backend and a **React + TypeScript** 
 
 ### Prerequisites
 Ensure you have the following installed:
-- [Docker](https://docs.docker.com/get-docker/)
-- [Docker Compose](https://docs.docker.com/compose/install/)
-- [Node.js & npm](https://nodejs.org/)
-- [Java 17+](https://adoptium.net/temurin/releases/)
+- [Docker](https://docs.docker.com/desktop/setup/install/windows-install/)
 
 ### Step 1: Clone the Repository
 ```sh
@@ -58,6 +55,6 @@ This will:
 
 ### Step 4: Verify Everything is Running
 Once the containers are up, check:
-- Backend API: [http://localhost:8080](http://localhost:8080/todos/filter)
+- Backend API: [http://localhost:8080/todos/filter](http://localhost:8080/todos/filter)
 - Frontend App: [http://localhost:3000](http://localhost:3000)
 
