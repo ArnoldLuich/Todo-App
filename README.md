@@ -35,13 +35,12 @@ Once the containers are up, check:
 ## Tech Stack & Reasoning
 ### Backend: Spring Boot
 - **Robust & Scalable**: Spring Boot provides a strong foundation for building REST APIs efficiently.
-- **Built-in JPA Support**: Works seamlessly with PostgreSQL, reducing boilerplate code for database interactions.
-- **Microservices Ready**: Ideal for future scalability if needed.
+- **Built-in JPA Support**: Simplifies database interactions with PostgreSQL, reducing boilerplate code.
 
 ### Frontend: React + TypeScript
-- **Component-Based Architecture**: Ensures modularity and reusability of UI elements.
-- **Type Safety**: TypeScript helps prevent runtime errors by enforcing type checking at compile-time.
-- **Performance**: React provides efficient UI updates using its virtual DOM.
+- **Component-Based Architecture**: Promotes modularity, reusability, and maintainability of UI elements.
+- **Type Safety**: TypeScript reduces potential runtime errors by enforcing strict type checking at compile-time.
+- **Optimized Performance**: React’s virtual DOM ensures efficient rendering and state updates.
 
 ### Database: PostgreSQL
 - **Reliability & Performance**: PostgreSQL is a powerful relational database known for handling large-scale applications.
@@ -50,6 +49,22 @@ Once the containers are up, check:
 ### Docker
 - **Containerization**: Ensures consistent environments across developments and testing.
 
+---
+
+## Features Implemented
+### Frontend Functionality
+✅ **Create To-Dos** – Users can add tasks with a description, creation date, and due date.
+
+✅ **Update To-Dos** – Users can modify the description, due date, and status (done/not done).
+
+✅ **Delete To-Dos** – Users can remove tasks.
+
+✅ **Filtering in UI** – Users can filter todos based on: Done / Not Done **|** Due Date **|** Text Search (Matches any part of a todo description)
+
+### API Functionality
+✅ **CRUD Operations** – Fully implemented to support the frontend.
+
+✅ **Filtering** – Users can filter tasks via API using:
 
 
 
