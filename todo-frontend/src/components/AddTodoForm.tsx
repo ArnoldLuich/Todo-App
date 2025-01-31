@@ -7,7 +7,9 @@ type Props = { setTodos: React.Dispatch<React.SetStateAction<Todo[]>> };
 const TodoForm = ({ setTodos }: Props) => {
   const [formData, setFormData] = useState({ text: "", dueDate: "" });
 
-  const handleAddTodo = async () => {
+  // Function to handle adding a new todo item
+  const AddTodo = async () => {
+    // Prevent adding empty tasks or tasks without a due date
     if (!formData.text.trim() || !formData.dueDate) return;
 
     try {
@@ -22,13 +24,17 @@ const TodoForm = ({ setTodos }: Props) => {
     }
   };
 
+  // Function to handle input field changes and update the form state
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
   return (
     <div className="card bg-dark bg-gradient text-white mb-4">
       <div className="card-body row g-3">
         <h3>Create Todo</h3>
+
+        {/* Input field for the todo task */}
         <div className="col-md-5">
           <input
             type="text"
@@ -41,6 +47,7 @@ const TodoForm = ({ setTodos }: Props) => {
           />
         </div>
 
+        {/* Input field for the due date */}
         <div className="col-md-4">
           <input
             type="date"
@@ -51,10 +58,11 @@ const TodoForm = ({ setTodos }: Props) => {
           />
         </div>
 
+        {/* Button to add the todo */}
         <div className="col-md-3">
           <button
             className="btn btn-primary w-100"
-            onClick={handleAddTodo}
+            onClick={AddTodo}
             disabled={!formData.text.trim() || !formData.dueDate}
           >
             Add Todo

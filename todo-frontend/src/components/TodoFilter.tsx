@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { TodoFilterRequest } from "../types/TodoFilterRequest";
 
 interface TodoFilterProps {
@@ -14,39 +14,35 @@ const TodoFilter = ({ onFilterChange }: TodoFilterProps) => {
     dueDateBefore: undefined,
   });
 
-  const handleInputChange = useCallback(
-    (
-      // performace issue kasuta useCallback
-      e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-    ) => {
-      const { name, value, type } = e.target;
-      let finalValue: string | boolean | undefined = value;
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value, type } = e.target;
+    let finalValue: string | boolean | undefined = value;
 
-      if (type === "checkbox") {
-        finalValue = (e.target as HTMLInputElement).checked;
-      } else if (value === "") {
-        finalValue = undefined;
-      }
+    // Convert checkbox value to a boolean
+    if (type === "checkbox") {
+      finalValue = (e.target as HTMLInputElement).checked;
+    } else if (value === "") {
+      finalValue = undefined;
+    }
 
-      const newFilter = { ...localFilter, [name]: finalValue };
+    const newFilter = { ...localFilter, [name]: finalValue };
 
-      //Use one date filter at a time
-      if (name === "dueDate") {
-        newFilter.dueDateAfter = undefined;
-        newFilter.dueDateBefore = undefined;
-      } else if (name === "dueDateBefore") {
-        newFilter.dueDate = undefined;
-        newFilter.dueDateAfter = undefined;
-      } else if (name === "dueDateAfter") {
-        newFilter.dueDate = undefined;
-        newFilter.dueDateBefore = undefined;
-      }
+    // Ensure only one date filter is used at a time
+    if (name === "dueDate") {
+      newFilter.dueDateAfter = undefined;
+      newFilter.dueDateBefore = undefined;
+    } else if (name === "dueDateBefore") {
+      newFilter.dueDate = undefined;
+      newFilter.dueDateAfter = undefined;
+    } else if (name === "dueDateAfter") {
+      newFilter.dueDate = undefined;
+      newFilter.dueDateBefore = undefined;
+    }
 
-      setLocalFilter(newFilter);
-      onFilterChange(newFilter);
-    },
-    [localFilter, onFilterChange]
-  );
+    setLocalFilter(newFilter); // Update local state
+  };
 
   const clearFilters = () => {
     const clearedFilter = {
@@ -66,6 +62,8 @@ const TodoFilter = ({ onFilterChange }: TodoFilterProps) => {
         <div className="card-body">
           <div className="row g-3">
             <h3>Filter</h3>
+
+            {/* Filter by Description */}
             <div className="col-md-4">
               <label className="form-label">Description contains:</label>
               <input
@@ -77,6 +75,7 @@ const TodoFilter = ({ onFilterChange }: TodoFilterProps) => {
               />
             </div>
 
+            {/* Filter by Completion Status */}
             <div className="col-md-3">
               <label className="form-label">Status:</label>
               <select
@@ -91,6 +90,7 @@ const TodoFilter = ({ onFilterChange }: TodoFilterProps) => {
               </select>
             </div>
 
+            {/* Filter by Due Date After */}
             <div className="col-md-3">
               <label className="form-label">Due Date After:</label>
               <input
@@ -102,6 +102,7 @@ const TodoFilter = ({ onFilterChange }: TodoFilterProps) => {
               />
             </div>
 
+            {/* Filter by Due Date Before */}
             <div className="col-md-3">
               <label className="form-label">Due Date Before:</label>
               <input
@@ -113,6 +114,7 @@ const TodoFilter = ({ onFilterChange }: TodoFilterProps) => {
               />
             </div>
 
+            {/* Filter by Exact Due Date */}
             <div className="col-md-3">
               <label className="form-label">Due Date At:</label>
               <input
@@ -124,8 +126,15 @@ const TodoFilter = ({ onFilterChange }: TodoFilterProps) => {
               />
             </div>
 
-            <div className="col-12">
-              <button className="btn btn-primary" onClick={clearFilters}>
+            {/* Buttons to apply and clear filters */}
+            <div className="col-12 d-flex justify-content-start gap-2 mt-3">
+              <button
+                className="btn btn-primary"
+                onClick={() => onFilterChange(localFilter)}
+              >
+                Apply Filters
+              </button>
+              <button className="btn btn-secondary" onClick={clearFilters}>
                 Clear Filters
               </button>
             </div>

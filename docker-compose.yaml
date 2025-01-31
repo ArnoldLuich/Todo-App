@@ -9,7 +9,7 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       POSTGRES_DB: todos
-      POSTGRES_PASSWORD: terepiim
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tere}
       POSTGRES_USER: postgres
     restart: always
 

@@ -6,9 +6,12 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
+/**
+ * Represents a Todo item entity in the database.
+ * This class is mapped to the "todo" table, with properties reflecting the columns in the table.
+ */
 @Entity
 @Table(name = "todo")
 @Setter

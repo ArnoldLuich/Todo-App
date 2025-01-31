@@ -3,29 +3,39 @@ package com.todo_backend.todo_backend.service;
 import com.todo_backend.todo_backend.dto.TodoFilterRequest;
 import com.todo_backend.todo_backend.model.Todo;
 import com.todo_backend.todo_backend.repository.TodoRepository;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+/**
+ * This service interacts with the repository to manage Todo entities.
+ * It provides methods to create, update, delete, retrieve, and filter Todo items.
+ */
 @Service
 public class TodoServiceImpl implements TodoService {
 
-  @Autowired
-  private TodoRepository todoRepository;
+  private final TodoRepository todoRepository;
 
-  @Override
-  public List<Todo> getAllTodos() {
-    return todoRepository.findAll();
+  public TodoServiceImpl(TodoRepository todoRepository) {
+    this.todoRepository = todoRepository;
   }
 
+  /**
+   * Retrieves a Todo by its ID.
+   * @param id The ID of the Todo to retrieve.
+   * @return An Optional containing the Todo if found, or empty if not.
+   */
   @Override
   public Optional<Todo> getTodoById(Long id) {
     return todoRepository.findById(id);
   }
 
+  /**
+   * Creates a new Todo in the database.
+   * @param todo The Todo object to be created.
+   * @return An Optional containing the saved Todo if creation was successful, or empty if validation fails.
+   */
   @Override
   public Optional<Todo> createTodo(Todo todo) {
     if (todo.getDescription() != null && todo.getDueDate() != null) {
@@ -36,6 +46,12 @@ public class TodoServiceImpl implements TodoService {
     return Optional.empty();
   }
 
+  /**
+   * Updates an existing Todo in the database.
+   * @param id The ID of the Todo to update.
+   * @param todo The updated Todo data.
+   * @return An Optional containing the updated Todo if successful, or empty if the Todo does not exist.
+   */
   @Override
   public Optional<Todo> updateTodo(Long id, Todo todo) {
     if (todoRepository.existsById(id)) {
@@ -46,24 +62,34 @@ public class TodoServiceImpl implements TodoService {
     return Optional.empty();
   }
 
+  /**
+   * Deletes a Todo by its ID.
+   * @param id The ID of the Todo to delete.
+   * @return true if the Todo was successfully deleted, false if the Todo does not exist.
+   */
   @Override
   public boolean deleteTodo(Long id) {
-    boolean exists = todoRepository.existsById(id);
-    if (exists) {
-      todoRepository.deleteById(id);
+    if (!todoRepository.existsById(id)) {
+      return false;
     }
-    return exists;
+    todoRepository.deleteById(id);
+    return true;
   }
 
+  /**
+   * Retrieves a list of Todos based on filters provided in the TodoFilterRequest.
+   * @param filter The filter criteria to apply to the Todo list.
+   * @return A list of Todos that match the provided filters.
+   */
   @Override
   public List<Todo> getTodosWithFilters(TodoFilterRequest filter) {
     Specification<Todo> spec = Specification.where(
-      TodoSpecification.hasDone(filter.isDone())
+      TodoFilterSpecification.hasDone(filter.isDone())
     )
-      .and(TodoSpecification.hasDueDate(filter.dueDate()))
-      .and(TodoSpecification.dueDateBefore(filter.dueDateBefore()))
-      .and(TodoSpecification.dueDateAfter(filter.dueDateAfter()))
-      .and(TodoSpecification.descriptionContains(filter.description()));
+      .and(TodoFilterSpecification.hasDueDate(filter.dueDate()))
+      .and(TodoFilterSpecification.dueDateBefore(filter.dueDateBefore()))
+      .and(TodoFilterSpecification.dueDateAfter(filter.dueDateAfter()))
+      .and(TodoFilterSpecification.descriptionContains(filter.description()));
 
     return todoRepository.findAll(spec);
   }

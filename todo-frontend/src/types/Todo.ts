@@ -1,3 +1,6 @@
+/**
+ * Represents a Todo item with its details.
+ */
 interface Todo {
   id: number;
   description: string;

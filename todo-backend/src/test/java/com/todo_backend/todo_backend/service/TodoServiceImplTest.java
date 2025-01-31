@@ -46,16 +46,6 @@ public class TodoServiceImplTest {
   }
 
   @Test
-  void getAllTodos_ShouldReturnAllTodos() {
-    when(todoRepository.findAll()).thenReturn(
-      Collections.singletonList(validTodo)
-    );
-    List<Todo> result = todoService.getAllTodos();
-    assertEquals(1, result.size());
-    verify(todoRepository).findAll();
-  }
-
-  @Test
   void getTodoById_WhenExists_ShouldReturnTodo() {
     when(todoRepository.findById(1L)).thenReturn(Optional.of(validTodo));
     Optional<Todo> result = todoService.getTodoById(1L);
