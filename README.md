@@ -1,6 +1,6 @@
 # Todo App
 ## Overview
-This project consists of a **Spring Boot** backend and a **React + TypeScript** frontend, using **PostgreSQL** as the database. The entire application is containerized using **Docker**.
+This Todo app features a **Spring Boot** backend, a **React + TypeScript** frontend, and **PostgreSQL** for data storage. The entire application is containerized with **Docker**.
 
 ## Running the Application
 
