@@ -7,14 +7,27 @@ This Todo app features a **Spring Boot** backend, a **React + TypeScript** front
 ### Prerequisites
 Ensure you have the following installed:
 - [Docker](https://docs.docker.com/desktop/setup/install/windows-install/)
+- [Java 21](https://www.oracle.com/ee/java/technologies/downloads/#java21)
+- [PostgreSQL](https://www.postgresql.org/)
+
 
 ### Step 1: Clone the Repository
+First, clone the repository to your local machine:
 ```sh
 git clone https://github.com/ArnoldLuich/Todo-App.git
-cd Todo-App
+```
+### Step 2: Verify PostgreSQL Credentials
+- Open the .env file located in your project directory.
+- Check the values for POSTGRES_USER and POSTGRES_PASSWORD.
+- Ensure they match your PostgreSQL setup.
+
+### Step 3: Build the Backend
+```sh
+cd Todo-App/todo-backend
+./gradlew clean bootJar
 ```
 
-### Step 2: Start the Application with Docker
+### Step 4: Start the Application with Docker
 Run the following command in Todo-App directory
 ```sh
 docker-compose up --build
@@ -26,7 +39,7 @@ This will:
 - Start the Spring Boot backend
 - Start the React frontend
 
-### Step 3: Verify Everything is Running
+### Step 5: Verify Everything is Running
 Once the containers are up, check:
 - Backend API: [http://localhost:8080/todos/filter](http://localhost:8080/todos/filter)
 - Frontend App: [http://localhost:3000](http://localhost:3000)
@@ -65,6 +78,4 @@ Once the containers are up, check:
 ✅ **CRUD Operations** – Fully implemented to support the frontend.
 
 ✅ **Filtering** – Users can filter tasks via API using:
-
-
 
