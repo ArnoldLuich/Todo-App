@@ -9,7 +9,7 @@ type Props = {
 
 const TodoEditItem = ({ editing, setEditing, onSave, onCancel }: Props) => {
   // Handles changes to the description input field
-  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => { //useCallback ensures the function does not get recreated on every render
     setEditing({ ...editing, description: e.target.value });
   };
 

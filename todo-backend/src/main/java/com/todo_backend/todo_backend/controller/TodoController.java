@@ -4,8 +4,11 @@ import com.todo_backend.todo_backend.dto.TodoFilterRequest;
 import com.todo_backend.todo_backend.model.Todo;
 import com.todo_backend.todo_backend.service.TodoService;
 import java.util.List;
+
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -54,13 +57,13 @@ public class TodoController {
    * @throws ResponseStatusException if the request data is invalid.
    */
   @PostMapping("")
-  public Todo createTodo(@RequestBody Todo todo) {
+  public Todo createTodo(@Valid @RequestBody Todo todo) {
     return todoService
       .createTodo(todo)
       .orElseThrow(() ->
         new ResponseStatusException(
           HttpStatus.BAD_REQUEST,
-          "Failed to create Todo: Invalid or missing data"
+          "Failed to create a Todo!"
         )
       );
   }
@@ -74,18 +77,17 @@ public class TodoController {
    * @throws ResponseStatusException if the provided data is invalid or the todo is not found.
    */
   @PutMapping("/{id}")
-  public Todo updateTodo(@PathVariable Long id, @RequestBody Todo todo) {
-    if (todo.getDueDate() == null || todo.getDescription() == null) {
-      throw new ResponseStatusException(
-        HttpStatus.BAD_REQUEST,
-        "Todo data is not valid"
-      );
+  public Todo updateTodo(@PathVariable Long id,@Valid @RequestBody Todo todo) {
+    try {
+      return todoService
+              .updateTodo(id, todo)
+              .orElseThrow(() ->
+                      new ResponseStatusException(HttpStatus.NOT_FOUND, "Todo not found")
+              );
+    } catch (Exception e){
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
     }
-    return todoService
-      .updateTodo(id, todo)
-      .orElseThrow(() ->
-        new ResponseStatusException(HttpStatus.NOT_FOUND, "Todo not found")
-      );
+
   }
 
   /**

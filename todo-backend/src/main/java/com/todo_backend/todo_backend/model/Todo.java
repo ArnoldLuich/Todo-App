@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -23,16 +24,18 @@ public class Todo {
   @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
   private Long id;
 
+  @NonNull
   @JsonFormat(shape = JsonFormat.Shape.STRING)
   @Column(nullable = false) // Database-level non-null constraint
   private String description;
 
+  @NonNull
   @JsonFormat(pattern = "yyyy-MM-dd")
   @Column(nullable = false) // Database-level non-null constraint
   private LocalDate dueDate;
 
   @CreationTimestamp
-  @Column(name = "created_at", updatable = false, nullable = false)
+  @Column(name = "created_at", nullable = false)
   @JsonFormat(pattern = "yyyy-MM-dd")
   private LocalDate createdAt;
 

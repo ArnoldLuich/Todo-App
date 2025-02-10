@@ -38,12 +38,14 @@ public class TodoServiceImpl implements TodoService {
    */
   @Override
   public Optional<Todo> createTodo(Todo todo) {
-    if (todo.getDescription() != null && todo.getDueDate() != null) {
+    try {
       todo.setId(null); // Ensure a new Todo is created
       Todo savedTodo = todoRepository.save(todo);
       return Optional.of(savedTodo);
+    } catch (Exception e) {
+      return Optional.empty();
     }
-    return Optional.empty();
+
   }
 
   /**
@@ -54,12 +56,15 @@ public class TodoServiceImpl implements TodoService {
    */
   @Override
   public Optional<Todo> updateTodo(Long id, Todo todo) {
-    if (todoRepository.existsById(id)) {
-      todo.setId(id); // Make sure the ID of the passed Todo is the same as the one we want to update
-      Todo savedTodo = todoRepository.save(todo);
-      return Optional.of(savedTodo);
-    }
-    return Optional.empty();
+      return todoRepository.findById(id).map(existingTodo -> {
+
+        existingTodo.setDescription(todo.getDescription());
+        existingTodo.setDueDate(todo.getDueDate());
+        existingTodo.setDone(todo.isDone());
+
+        Todo updatedTodo = todoRepository.save(existingTodo);
+        return Optional.of(updatedTodo);
+      }).orElse(Optional.empty());
   }
 
   /**
