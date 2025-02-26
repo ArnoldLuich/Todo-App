@@ -33,12 +33,22 @@ public class TodoFilterSpecification {
 
   //Specification to filter Todos by a description that contains the provided text.
   public static Specification<Todo> descriptionContains(String description) {
-    return (root, query, cb) ->
-      !StringUtils.hasText(description)
-        ? null
-        : cb.like(
-          cb.lower(root.get("description")),
-          "%" + description.toLowerCase() + "%"
-        );
+    return (root, query, cb) -> {
+      if (!StringUtils.hasText(description)) {
+        return null;
+      }
+      // Escape special characters in the input
+      String escapedDescription = escapeLikePattern(description.toLowerCase());
+      // Add wildcards for "contains" semantics
+      String pattern = "%" + escapedDescription + "%";
+      // Use the escape character in the like clause
+      return cb.like(cb.lower(root.get("description")), pattern, '\\');
+    };
+  }
+
+  private static String escapeLikePattern(String input) {
+    return input.replace("\\", "\\\\") // Escape backslashes first
+            .replace("%", "\\%")    // Escape %
+            .replace("_", "\\_");   // Escape _
   }
 }
