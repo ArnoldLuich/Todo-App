@@ -77,5 +77,5 @@ Once the containers are up, check:
 ### API Functionality
 ✅ **CRUD Operations** – Fully implemented to support the frontend.
 
-✅ **Filtering** – Users can filter tasks via API using:
+✅ **Filtering** – Users can filter tasks via API
 
