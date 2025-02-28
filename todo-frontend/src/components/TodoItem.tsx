@@ -1,4 +1,6 @@
+import { useState } from "react";
 import Todo from "../types/Todo";
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
 
 /**
  * Props type definition for TodoItem component
@@ -17,16 +19,11 @@ type Props = {
 };
 
 const TodoItem = ({ todo, isOverdue, onEditStart, onDelete }: Props) => {
-  const handleEditStart = () => {
-    onEditStart(todo);
-  };
-
-  const handleDelete = () => {
-    onDelete(todo.id);
-  };
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   return (
     <>
+      {/* Todo Item Content */}
       <div className="flex-grow-1 me-3" style={{ minWidth: 0 }}>
         <h5 className="text-wrap mb-1" style={{ wordWrap: "break-word" }}>
           {todo.description}
@@ -42,17 +39,28 @@ const TodoItem = ({ todo, isOverdue, onEditStart, onDelete }: Props) => {
       <div className="flex-shrink-0">
         <button
           className="btn btn-outline-warning btn-sm me-2"
-          onClick={handleEditStart}
+          onClick={() => onEditStart(todo)}
         >
           Edit
         </button>
         <button
           className="btn btn-outline-danger btn-sm"
-          onClick={handleDelete}
+          onClick={() => setShowDeleteModal(true)}
         >
           Delete
         </button>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      <DeleteConfirmationModal
+        show={showDeleteModal}
+        onConfirm={() => {
+          onDelete(todo.id);
+          setShowDeleteModal(false);
+        }}
+        onCancel={() => setShowDeleteModal(false)}
+      />
+      
     </>
   );
 };
